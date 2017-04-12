@@ -264,3 +264,136 @@ align-title          string       这个是对齐 title 的。如果没有设置
 2. show-delete        布尔值       列表项的删除按钮当前是显示还是隐藏。
 3. show-reorder       布尔值       列表项的排序按钮当前是显示还是隐藏。
 4. can-swipe          布尔值       列表项是否被允许滑动显示选项按钮。默认：true。
+
+# ionic 加载动作
+1. $ionicLoading 是 ionic 默认的一个加载交互效果。里面的内容也是可以在模板里面修改。
+
+### 方法：
+1. show(opts)  hide()
+2. opts    object     loading指示器的选项。可用属性：
+                      + {string=} template 指示器的html内容。
+                      + {string=} templateUrl 一个加载html模板的url作为指示器的内容。
+                      + {boolean=} noBackdrop 是否隐藏背景。默认情况下它会显示。
+                      + {number=} delay 指示器延迟多少毫秒显示。默认为不延迟。
+                      + {number=} duration 等待多少毫秒后自动隐藏指示器。默认情况下，指示器会一直显示，直到触发.hide()。
+
+### API
+1. delegate-handle       字符串           该句柄定义带有$ionicListDelegate的列表。
+2. show-delete           布尔值           列表项的删除按钮当前是显示还是隐藏。
+3. show-reorder          布尔值           列表项的排序按钮当前是显示还是隐藏。
+4. can-swipe             布尔值           列表项是否被允许滑动显示选项按钮。 默认：true。
+
+### $ionicLoadingConfig
+1. 设置加载的默认选项:
+
+# ionic 模态窗口
+
+###　$ionicModal
+1. $ionicModal 可以遮住用户主界面的内容框。
+
+###　方法
+1. fromTemplate(templateString, options)
+    + templateString     字符串      模板的字符串作为模态窗口的内容。
+    + options            对象        options 会传递到 ionicModal#initialize方法中。
+注：返回: 对象, 一个ionicModal控制器的实例。
+2. fromTemplateUrl(templateUrl, options)
+    + templateUrl        字符串      载入模板的url。
+    + options            对象        通过ionicModal#initialize方法传递对象。
+注：返回： promise对象。Promises对象是CommonJS工作组提出的一种规范，目的是为异步编程提供统一接口。
+
+### ionicModal
+1. 由$ionicModal服务实例化。
+2. 提示：当你完成每个模块清除时，确保调用remove()方法，以避免内存泄漏。
+3. 注意：一个模块从它的初始范围广播出 'modal.shown' 和 'modal.hidden' ，把自身作为一个参数来传递。
+
+### 方法
+1. initialize(可选) ： 创建一个新的模态窗口控制器示例。
+    + options      对象       一个选项对象具有一下属性：
+                              + {object=} 范围 子类的范围。默认：创建一个$rootScope子类。
+                              + {string=} 动画 带有显示或隐藏的动画。默认：'slide-in-up'
+                              + {boolean=} 第一个输入框获取焦点 当显示时，模态窗口的第一个输入元素是否自动获取焦点。默认：false。
+                              + {boolean=}backdropClickToClose 点击背景时是否关闭模态窗口。默认：true。
+
+2. show() : 显示模态窗口实例
+  + 返回值: promise promise对象,在模态窗口完成动画后得到解析
+3. hide() : 隐藏模态窗口。
+  + 返回值: promise promise对象,在模态窗口完成动画后得到解析
+4. remove() : 从 DOM 中移除模态窗口实例并清理。
+  + 返回值: promise promise对象,在模态窗口完成动画后得到解析
+5. isShown()
+  + 返回：布尔值，用于判断模态窗口是否显示。
+
+# ionic 导航
+
+### ion-nav-view
+1. 当用户在你的app中浏览时，ionic能够检测到浏览历史。通过检测浏览历史，实现向左或向右滑动时可以正确转换视图。
+2. 采用AngularUI路由器模块等应用程序接口可以分为不同的$state(状态)。Angular的核心为路由服务，URLs可以用来控制视图。
+3. AngularUI路由提供了一个更强大的状态管理，即状态可以被命名，嵌套， 以及合并视图，允许一个以上模板呈现在同一个页面。
+4. 此外，每个状态无需绑定到一个URL，并且数据可以更灵活地推送到每个状态。
+
+### ion-view
+1. 隶属于ionNavView。 一个内容的容器，用于展示视图或导航栏信息。
+  + title(可选)                     字符串	        显示在父ionNavBar的标题。
+  + hide-back-button(可选)          布尔值         默认情况下，是否在父ionNavBar隐藏后退按钮。
+  + hide-nav-bar(可选)              布尔值         默认情况下，是否隐藏父ionNavBar。
+
+### ion-nav-bar
+1. 创建一个顶部工具栏，当程序状态改变时更新。
+  + delegate-handle(可选)      字符串	        该句柄用$ionicNavBarDelegate标识此导航栏。
+  + align-title(可选)          字符串          导航栏标题对齐的位置。可用： 'left', 'right', 'center'。 默认为 'center'。
+
+### ion-nav-buttons
+1. 隶属于ionNavView
+2. 在ionView内的ionNavBar上用ionNavButtons设置按钮。
+3. 你设置的任何按钮都将被放置在导航栏的相应位置，当用户离开父视图时会被销毁。
+4. side    字符串           在父ionNavBar中按钮放置的位置。 可用: 'left' 或 'right'。
+
+###　ion-nav-back-button
+1. 在一个ionNavBar中创建一个按钮。
+2. 当用户在当前导航能够后退时，将显示后退按钮。
+3. 自定义点击动作，用 $ionicNavBarDelegate:
+4. 在后退按钮上显示上一个标题，也用$ionicNavBarDelegate。
+
+### nav-clear
+1. nav-clear一个当点击视图上的元素时用到的属性指令，比如一个 <a href> 或者一个 <button ui-sref>。
+2. 当点击时，nav-clear将会导致给定的元素，禁止下一个视图的转换。这个指令很有用，比如，侧栏菜单内的链接。
+
+### ion-nav-title
+1. ion-nav-title 用于设置 ion-view 模板中的标题。
+
+### nav-transition
+1. 设置使用的过渡类型，可以是：ios, android, 和 none。
+
+###　nav-direction
+1. 设置导航视图中过渡动画的方向，可以是forward, back, enter, exit, swap。
+
+### $ionicNavBarDelegate
+1. 授权控制 ion-nav-bar 指令。
+##### 方法
+1. align([direction]) ：在浏览历史中后退。
+  + event(可选)    DOMEvent    事件对象（如来自点击事件）
+2. showBar(show) ： 设置或获取 ion-nav-bar 是否显示。
+  + show        布尔值      导航栏是否显示。
+3. showBackButton([show]) ： 设置或获取 ion-nav-back-button 是否显示。
+  + show(可选)  布尔值      是否显示后退按钮
+4. title(title) ： 为ion-nav-bar设置标题。
+  + title       字符串      显示新标题。
+
+### $ionicHistory
+1. $ionicHistory 用于跟踪用户在 app 内的浏览记录。
+##### 方法
+1. viewHistory() ：         用于查看历史记录。
+2. currentView() ：         app 的当前视图。
+3. currentHistoryId() ：    历史堆栈的 ID，是当前视图的父类容器。
+4. currentTitle([val]) ：   获取或设置当前视图的标题。
+5. backView() ：            返回上次浏览的视图。
+6. backTitle() ：           获取上次浏览的视图的标题。
+7. forwardView() ：         返回历史堆栈中当前视图的上一个视图。
+8. currentStateName() ：    返回当前状态名。
+9. goBack([backCount]) ：   app 回退视图，如果回退的视图存在。
+
+# ionic 平台
+### $ionicPlatform
+1. $ionicPlatform 用来检测当前的平台，以及诸如在PhoneGap/Cordova中覆盖Android后退按钮。
+##### 方法
+1. onHardwareBackButton(callback)

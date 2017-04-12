@@ -396,4 +396,164 @@ align-title          string       这个是对齐 title 的。如果没有设置
 ### $ionicPlatform
 1. $ionicPlatform 用来检测当前的平台，以及诸如在PhoneGap/Cordova中覆盖Android后退按钮。
 ##### 方法
-1. onHardwareBackButton(callback)
+1. onHardwareBackButton(callback) ： 有硬件的后退按钮的平台，可以用这种方法绑定到它。
+  + callback   function    当该事件发生时，触发回调函数。
+2. offHardwareBackButton(callback) ： 移除后退按钮的监听事件。
+  + callback   function    最初绑定的监视器函数。
+3. registerBackButtonAction(callback, priority, [actionId]) ： 注册硬件后退按钮动作。当点击按钮时，只有一个动作会执行，因此该方法决定了注册的后退按钮动作具有最高的优先级。
+  + callback         function    当点击返回按钮时触发，如果该监视器具有最高的优先级。
+  + priority         number      仅最高优先级的会执行。
+  + actionId(可选)    *          该id指定这个动作。默认：一个随机且唯一的id。
+注：返回值: 函数， 一个被触发的函数，将会注销 backButtonAction。
+4. ready([callback]) ： 设备准备就绪，则触发一个回调函数。
+  + callback(可选)    function=   触发的函数。
+注：返回: promise对象, 对象被构造 成功后得到解析。
+
+# ionic 浮动框
+### $ionicPopover
+1. $ionicPopover 是一个可以浮在app内容上的一个视图框。
+2. 可以实现以下功能点：
+  + 在当前页面显示更多信息。
+  + 选择一些工具或配置。
+  + 在页面提供一个操作列表。
+### 方法
+1. fromTemplate(templateString, options) 或  fromTemplateUrl(templateUrl, options)
+2. 参数说明：
+  + templateString: 模板字符串。
+  + emplateUrl: 载入的模板 URL。
+  + options: 初始化选项。
+
+# ionic 对话框
+### $ionicPopup
+1. ionic 对话框服务允许程序创建、显示弹出窗口。
+2. $ionicPopup 提供了3个方法：alert(), prompt(),以及 confirm() 。
+
+# ionic 滚动条
+### ion-scroll
+1. ion-scroll 用于创建一个可滚动的容器。
+
+###　API
+1. delegate-handle(可选)    字符串	     该句柄利用$ionicScrollDelegate指定滚动视图。
+2. direction(可选)          字符串      滚动的方向。 'x' 或 'y'。 默认 'y'。
+3. paging(可选)             布尔值      分页是否滚动。
+4. on-refresh(可选)         表达式      调用下拉刷新， 由ionRefresher触发。
+5. on-scroll(可选)          表达式      当用户滚动时触发。
+6. scrollbar-x(可选)        布尔值      是否显示水平滚动条。默认为false。
+7. scrollbar-y(可选)        布尔值      是否显示垂直滚动条。默认为true。
+8. zooming(可选)            布尔值      是否支持双指缩放。
+9. min-zoom(可选)           整数        允许的最小缩放量（默认为0.5）
+10. max-zoom(可选)          整数        允许的最大缩放量（默认为3）
+
+### ion-infinite-scroll
+1. 当用户到达页脚或页脚附近时，ionInfiniteScroll指令允许你调用一个函数 。
+2. 当用户滚动的距离超出底部的内容时，就会触发你指定的on-infinite。
+3. 当没有更多数据加载时，就可以用一个简单的方法阻止无限滚动，那就是angular的ng-if 指令:
+4. API
+   + on-infinite           表达式      当滚动到底部时触发的事件。
+   + distance(可选)        字符串      从底部滚动到触发on-infinite表达式的距离。默认: 1%。
+   + icon(可选)            字符串      当加载时显示的图标。默认: 'ion-loading-d'。
+
+### $ionicScrollDelegate
+1. 授权控制滚动视图（通过ion-content 和 ion-scroll指令创建）。
+2. 该方法直接被$ionicScrollDelegate服务触发，来控制所有滚动视图。用 $getByHandle方法控制特定的滚动视图。
+##### 方法
+1. resize() : 告诉滚动视图重新计算它的容器大小。
+2. scrollTop([shouldAnimate])
+  + shouldAnimate(可选)    布尔值     是否应用滚动动画。
+3. scrollBottom([shouldAnimate])
+  + shouldAnimate(可选)    布尔值     是否应用滚动动画。
+
+# ionic 侧栏菜单
+1. 一个容器元素包含侧边菜单和主要内容。通过把主要内容区域从一边拖动到另一边，来让左侧或右侧的侧栏菜单进行切换。
+
+### 用法
+1. 要使用侧栏菜单，添加一个父元素<ion-side-menus>，一个中间内容 <ion-side-menu-content>，和一个或更多 <ion-side-menu> 指令。
+2. API
+  + enable-menu-with-back-views(可选)    布尔值      在返回按钮显示时，确认是否启用侧边栏菜单。
+  + delegate-handle                     字符串       该句柄用于标识带有$ionicScrollDelegate的滚动视图。
+
+### ion-side-menu-content
+1. 一个可见主体内容的容器，同级的一个或多个ionSideMenu 指令。
+  + drag-content(可选)   布尔值     内容是否可被拖动。默认为true。
+
+### ion-side-menu
+1. 一个侧栏菜单的容器，同级的一个ion-side-menu-content 指令。
+2. API
+  + side                字符串     侧栏菜单当前在哪一边。可选的值有: 'left' 或 'right'。
+  + is-enabled(可选)    布尔值     该侧栏菜单是否可用。
+  + width(可选)         数值       侧栏菜单应该有多少像素的宽度。默认为275。
+
+### menu-toggle
+1. 在一个指定的侧栏中切换菜单。
+
+###　menu-close
+1. 关闭当前打开的侧栏菜单。
+
+### $ionicSideMenuDelegate
+1. 该方法直接触发$ionicSideMenuDelegate服务，来控制所有侧栏菜单。用$getByHandle方法控制特定情况下的ionSideMenus。
+#####　方法
+1. toggleLeft([isOpen]) : 切换左侧侧栏菜单（如果存在）。
+ + isOpen(可选)     布尔值        是否打开或关闭菜单。默认：切换菜单。
+2. toggleRight([isOpen]) : 切换右侧侧栏菜单（如果存在）。
+ + isOpen(可选)     布尔值        是否打开或关闭菜单。默认：切换菜单。
+3. getOpenRatio() : 获取打开菜单内容超出菜单宽度的比例。比如，一个宽度为100px的菜单被宽度为50px以50%的比例打开，将会返回一个比例值为0.5。
+注：返回值: 浮点 0 表示没被打开，如果左侧菜单处于已打开或正在打开为0 到 1，如果右侧菜单处于已打开或正在打开为0 到-1。
+4. isOpen() ： 返回值: 布尔值，判断左侧或右侧菜单是否已经打开。
+5. isOpenLeft() ： 返回值: 布尔值左侧菜单是否已经打开。
+6. isOpenRight() ： 返回值: 布尔值右侧菜单是否已经打开。
+7. canDragContent([canDrag])
+  + canDrag(可选)    布尔值    设置是否可以拖动内容打开侧栏菜单。
+注： 返回值: 布尔值，是否可以拖动内容打开侧栏菜单。
+8. $getByHandle(handle)
+
+# ionic 滑动框
+1. ion-slide-box ： 滑动框是一个包含多页容器的组件，每页滑动或拖动切换：
+
+### API
+1. delegate-handle(可选)    字符串      该句柄用$ionicSlideBoxDelegate来标识这个滑动框。
+2. does-continue(可选)      布尔值      滑动框是否开启循环滚动。
+3. auto-play(可选)          boolean    设置滑动框是否循环博客，如果 does-continue 为 true，默认也为 true。
+4. slide-interval(可选)     数字        等待多少毫秒开始滑动（如果继续则为true）。默认为4000。
+5. show-pager(可选)         布尔值      滑动框的页面是否显示。
+6. pager-click(可选)        表达式      当点击页面时，触发该表达式（如果shou-pager为true）。传递一个'索引'变量。
+7. on-slide-changed(可选)   表达式      当滑动时，触发该表达式。传递一个'索引'变量。
+8. active-slide(可选)       表达式      将模型绑定到当前滑动框。
+
+# ionic 加载动画
+### ion-spinner
+1. ionSpinner 提供了许多种旋转加载的动画图标。当你的界面加载时，你就可以呈现给用户相应的加载图标。
+2. 该图标采用的是SVG。
+
+# ionic 选项卡栏操作
+### ion-tabs
+1. ion-tabs 是有一组页面选项卡组成的选项卡栏。可以通过点击选项来切换页面。
+2. 对于 iOS，它会出现在屏幕的底部，Android会出现在屏幕的顶部(导航栏下面)。
+3. API
+  + delegate-handle(可选)     字符串	    该句柄用$ionicTabsDelegate来标识这些选项卡。
+
+### ion-tab
+1. 隶属于ionTabs
+2. 包含一个选项卡内容。该内容仅存在于被选中的给定选项卡中。
+3. 每个ionTab都有自己的浏览历史。
+4. API
+  + title               字符串       选项卡的标题。
+  + href(可选)          字符串       但触碰的时候，该选项卡将会跳转的的链接。
+  + icon(可选)          字符串       选项卡的图标。如果给定值，它将成为ion-on和ion-off的默认值。
+  + icon-on(可选)       字符串       被选中标签的图标。
+  + icon-off(可选)      字符串       没被选中标签的图标。
+  + badge(可选)         表达式       选项卡上的徽章（通常是一个数字）。
+  + badge-style(可选)   表达式       选项卡上微章的样式（例，tabs-positive ）。
+  + on-select(可选)     表达式       选项卡被选中时触发。
+  + on-deselect(可选)   表达式       选项卡取消选中时触发。
+  + ng-click(可选)      表达式       通常，点击时选项卡会被选中。如果设置了 ng-Click，它将不会被选中。 你可以用$ionicTabsDelegate.select()来指定切换标签。
+
+# $ionicTabsDelegate
+1. 授权控制ionTabs指令。
+2. 该方法直接调用$ionicTabsDelegate服务，控制所有ionTabs指令。用$getByHandle方法控制具体的ionTabs实例。
+### 方法
+1. select(index, [shouldChangeHistory]) : 选择标签来匹配给定的索引。
+  + index        	                数值      选择标签的索引。
+  + shouldChangeHistory(可选)     布尔值    此选项是否应该加载这个标签的浏览历史（如果存在），并使用，或仅加载默认页面。默认为false。提示：如果一个ion-nav-view在选项卡里，你可能需要设置它为true。
+2. selectedIndex() : 返回值: 数值, 被选中标签的索引，如 -1。
+3. $getByHandle(handle)
+  + handle      字符串
